@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>(주)응용인문연구소 — AI시대, 대체불가함은 인문학에서 나옵니다</title>
+<meta name="description" content="응용인문연구소는 인문학을 현실의 문제에 적용하는 회사입니다. 인문 콘텐츠 제작, 기업·기관 교육과 강연, 출판과 저술을 통해 AI 시대에 필요한 인간의 감각을 연구하고 전합니다." />
+<meta property="og:title" content="(주)응용인문연구소" />
+<meta property="og:description" content="AI시대, 대체불가함은 인문학에서 나옵니다. 콘텐츠·교육·출판으로 잇는 응용인문 연구." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link href="https://cdn.jsdelivr.net/gh/webfont-kr/KoPubDotum/KoPubDotum.css" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#15181d;
+    --ink-soft:#3d434c;
+    --muted:#767c86;
+    --line:#ded7cc;
+    --line-soft:#ebe5db;
+    --paper:#faf7f2;
+    --paper-2:#f2ede4;
+    --accent:#8a6533;
+    --accent-soft:#b9975f;
+    --max:1160px;
+    --serif:"KoPub Dotum","KoPubWorld돋움체","KoPub돋움체",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    --sans:"KoPub Dotum","KoPubWorld돋움체","KoPub돋움체",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    --about-bg-image:url(images/about-bg.jpeg);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:400;
+    line-height:1.85;
+    letter-spacing:-0.01em;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    word-break:keep-all;
+    overflow-wrap:break-word;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 32px;}
+
+  /* ── 진행바 ── */
+  #progress{
+    position:fixed;top:0;left:0;height:2px;width:0;
+    background:var(--accent);z-index:200;transition:width .1s linear;
+  }
+
+  /* ── 헤더 ── */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:150;
+    padding:22px 0;
+    transition:background .35s ease,padding .35s ease,border-color .35s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.solid{
+    background:rgba(250,247,242,.92);
+    backdrop-filter:saturate(180%) blur(14px);
+    -webkit-backdrop-filter:saturate(180%) blur(14px);
+    padding:14px 0;
+    border-color:var(--line-soft);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:24px;}
+  .brand{display:flex;align-items:baseline;gap:10px;}
+  .brand .mark{
+    font-family:var(--serif);font-weight:700;font-size:1.22rem;letter-spacing:-0.02em;
+  }
+  .brand .mark em{font-style:normal;color:var(--accent);}
+  .brand .sub{font-size:.68rem;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;}
+
+  nav.menu{display:flex;gap:6px;align-items:center;}
+  nav.menu a{
+    font-size:.88rem;font-weight:500;color:var(--ink-soft);position:relative;
+    padding:9px 17px;border-radius:999px;background:rgba(138,101,51,.07);
+    transition:background .25s ease,color .25s ease;
+  }
+  nav.menu a:hover{color:var(--accent);background:rgba(138,101,51,.15);}
+  .nav-cta{
+    border:1px solid var(--ink);border-radius:999px;padding:9px 20px;
+    font-size:.85rem;font-weight:500;background:none;
+    transition:background .25s ease,color .25s ease;
+  }
+  .nav-cta:hover{background:var(--ink);color:var(--paper);}
+
+  /* ── 히어로 ── */
+  .hero{
+    min-height:100vh;display:flex;align-items:center;position:relative;
+    padding:128px 0 84px;overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(80% 60% at 78% 18%, rgba(185,151,95,.16), transparent 62%),
+      radial-gradient(70% 55% at 8% 88%, rgba(21,24,29,.06), transparent 60%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(to right, var(--line-soft) 1px, transparent 1px);
+    background-size:calc(100% / 6) 100%;
+    mask-image:linear-gradient(to bottom, transparent, #000 25%, #000 70%, transparent);
+    -webkit-mask-image:linear-gradient(to bottom, transparent, #000 25%, #000 70%, transparent);
+  }
+  .hero .wrap{position:relative;}
+  .hero-flex{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:center;}
+  .hero-visual{position:relative;}
+  .hero-visual .frame{
+    position:relative;border-radius:6px;overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(21,24,29,.35), 0 4px 18px rgba(21,24,29,.1);
+    aspect-ratio:4/5;
+  }
+  .hero-visual .frame img{width:100%;height:100%;object-fit:cover;display:block;}
+  .hero-visual .frame::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(200deg, rgba(21,24,29,0) 55%, rgba(21,24,29,.28));
+    pointer-events:none;
+  }
+  .hero-visual::before{
+    content:"";position:absolute;top:22px;left:22px;right:-22px;bottom:-22px;
+    border:1px solid var(--accent-soft);border-radius:6px;z-index:-1;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:12px;
+    font-size:.74rem;letter-spacing:.24em;color:var(--accent);margin-bottom:26px;
+  }
+  .eyebrow::before{content:"";width:44px;height:1px;background:var(--accent);}
+  h1.hero-title{
+    font-family:var(--serif);font-weight:600;
+    font-size:clamp(1.9rem,5.6vw,4.5rem);
+    line-height:1.26;letter-spacing:-0.035em;margin:0 0 26px;
+  }
+  h1.hero-title .thin{font-weight:300;color:var(--ink-soft);}
+  h1.hero-title .accent{color:var(--accent);}
+  .hero-lead{
+    max-width:640px;font-size:clamp(1rem,1.5vw,1.12rem);
+    color:var(--ink-soft);line-height:1.95;margin:0 0 34px;
+  }
+  .hero-lead .lead-em{color:inherit;font-weight:700;}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:15px 30px;border-radius:999px;font-size:.92rem;font-weight:500;
+    transition:transform .25s ease,background .25s ease,color .25s ease,box-shadow .25s ease;
+  }
+  .btn-primary{background:var(--ink);color:var(--paper);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(21,24,29,.22);}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink-soft);}
+  .btn-ghost:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-2px);}
+  .btn .arrow{transition:transform .25s ease;}
+  .btn:hover .arrow{transform:translateX(4px);}
+
+  .hero-meta{
+    position:absolute;left:32px;right:32px;bottom:44px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+    max-width:var(--max);margin:0 auto;
+    font-size:.78rem;color:var(--muted);letter-spacing:.06em;
+  }
+  .scroll-hint{display:flex;align-items:center;gap:10px;}
+  .scroll-hint i{
+    display:block;width:1px;height:44px;background:linear-gradient(var(--accent),transparent);
+    animation:drop 2.2s ease-in-out infinite;transform-origin:top;
+  }
+  @keyframes drop{0%,100%{transform:scaleY(.3);opacity:.4;}50%{transform:scaleY(1);opacity:1;}}
+
+  /* ── 공통 섹션 ── */
+  section{padding:130px 0;position:relative;}
+  .sec-head{margin-bottom:64px;max-width:760px;}
+  .sec-num{
+    font-family:var(--serif);font-size:.8rem;letter-spacing:.22em;color:var(--accent);
+    display:block;margin-bottom:18px;
+  }
+  h2{
+    font-family:var(--serif);font-weight:600;
+    font-size:clamp(1.75rem,3.4vw,2.7rem);
+    line-height:1.42;letter-spacing:-0.03em;margin:0 0 22px;
+  }
+  .sec-lead{color:var(--ink-soft);font-size:1.02rem;line-height:2;margin:0;}
+  #publishing .sec-head{max-width:none;}
+  #publishing .sec-lead{white-space:nowrap;}
+  .rule{height:1px;background:var(--line-soft);border:0;margin:0;}
+
+  /* ── 소개 ── */
+  #about{position:relative;overflow:hidden;isolation:isolate;}
+  #about::before{
+    content:"";position:absolute;inset:0;z-index:-2;
+    background-image:var(--about-bg-image);
+    background-size:cover;background-position:center 32%;
+  }
+  #about::after{
+    content:"";position:absolute;inset:0;z-index:-1;
+    background:
+      radial-gradient(60% 70% at 80% 100%, rgba(21,24,29,.55), transparent 70%),
+      linear-gradient(180deg, rgba(21,24,29,.92) 0%, rgba(21,24,29,.88) 45%, rgba(21,24,29,.96) 100%);
+  }
+  #about .sec-num{color:var(--accent-soft);}
+  #about h2{color:var(--paper);}
+  #about .about-tagline{color:var(--paper);}
+  #about .about-body p{color:#d5d8dd;}
+  #about .signature{color:var(--paper);}
+  #about .btn-primary{background:var(--accent-soft);color:var(--ink);}
+  #about .btn-primary:hover{background:var(--paper);}
+  .about-flex{display:grid;grid-template-columns:220px 1fr;gap:56px;align-items:start;}
+  .about-content{max-width:660px;padding-top:6px;}
+  .about-visual{width:220px;}
+  .about-visual .frame{
+    border-radius:4px;overflow:hidden;
+    box-shadow:0 20px 40px -16px rgba(0,0,0,.55);aspect-ratio:3/4;
+  }
+  .about-visual .frame img{width:100%;height:100%;object-fit:cover;display:block;}
+  .about-tagline{
+    font-family:var(--serif);font-size:clamp(1.2rem,2vw,1.5rem);
+    line-height:1.6;letter-spacing:-0.02em;font-weight:500;margin:16px 0 30px;
+  }
+  .about-tagline .tag-em{
+    font-weight:800;text-decoration:underline;text-decoration-thickness:2px;
+    text-underline-offset:5px;
+  }
+  .about-body p{color:var(--ink-soft);margin:0 0 20px;}
+  .about-body p:last-child{margin-bottom:0;}
+  .about-actions{display:flex;flex-wrap:wrap;align-items:center;gap:22px;margin-top:34px;}
+  .signature{font-size:.92rem;font-weight:500;letter-spacing:.02em;}
+
+  /* ── 사업영역 ── */
+  .biz{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .biz-card{
+    background:var(--paper);padding:0;overflow:hidden;
+    transition:background .35s ease,transform .35s ease;position:relative;
+  }
+  .biz-card:hover{background:#fff;}
+  .biz-photo{aspect-ratio:2/1;overflow:hidden;}
+  .biz-photo.wide{background:#c9ad7c;}
+  .biz-photo.wide img{object-fit:contain;}
+  .biz-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
+  .biz-card:hover .biz-photo img{transform:scale(1.04);}
+  .biz-body{padding:36px 38px 40px;}
+  .biz-top{display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+  .biz-icon{
+    width:44px;height:44px;flex-shrink:0;border-radius:11px;
+    background:rgba(138,101,51,.09);display:flex;align-items:center;justify-content:center;
+    color:var(--accent);transition:background .35s ease;
+  }
+  .biz-card:hover .biz-icon{background:rgba(138,101,51,.15);}
+  .biz-icon svg{width:22px;height:22px;}
+  .biz-card .idx{
+    font-family:var(--serif);font-size:1.9rem;font-weight:300;color:var(--line);line-height:1;
+    transition:color .35s ease;
+  }
+  .biz-card:hover .idx{color:var(--accent-soft);}
+  .biz-card h3{
+    font-family:var(--serif);font-size:1.32rem;font-weight:600;letter-spacing:-0.025em;margin:0 0 8px;
+  }
+  .biz-card .en{
+    display:block;font-size:.7rem;letter-spacing:.2em;color:var(--muted);margin-bottom:20px;
+  }
+  .biz-card p{color:var(--ink-soft);font-size:.95rem;line-height:1.95;margin:0 0 24px;}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .tags li{
+    list-style:none;font-size:.78rem;color:var(--ink-soft);
+    border:1px solid var(--line);border-radius:999px;padding:5px 13px;background:var(--paper-2);
+  }
+
+  /* ── 미디어 ── */
+  #media{background:var(--ink);color:var(--paper);}
+  #media h2,#media .sec-lead{color:var(--paper);}
+  #media .sec-lead{color:#b8bcc3;}
+  #media .sec-num{color:var(--accent-soft);}
+  .channel{
+    border:1px solid rgba(255,255,255,.14);border-radius:4px;
+    padding:52px 48px;display:grid;grid-template-columns:1fr .85fr;gap:56px;align-items:start;
+    transition:border-color .35s ease,background .35s ease;
+  }
+  .channel:hover{border-color:var(--accent-soft);background:rgba(255,255,255,.03);}
+  .channel-main{display:flex;flex-direction:column;}
+  .channel-side{border-left:1px solid rgba(255,255,255,.14);padding-left:40px;}
+  .channel-side h4{
+    font-size:.72rem;letter-spacing:.2em;color:var(--accent-soft);margin:0 0 20px;font-weight:500;
+  }
+  .channel-side ul{margin:0;padding:0;list-style:none;}
+  .channel-side li{
+    font-size:.9rem;color:#c3c7cd;padding:11px 0;line-height:1.75;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .channel-side li:last-child{border-bottom:0;}
+  .channel .kind{font-size:.7rem;letter-spacing:.22em;color:var(--accent-soft);margin-bottom:18px;}
+  .channel h3{font-family:var(--serif);font-size:1.5rem;font-weight:600;margin:0 0 6px;letter-spacing:-0.025em;}
+  .channel .handle{font-size:.85rem;color:#8f959e;margin-bottom:22px;}
+  .channel p{color:#c3c7cd;font-size:.95rem;line-height:1.95;margin:0 0 28px;flex:1;}
+  .channel .go{
+    font-size:.88rem;font-weight:500;color:var(--ink);background:var(--accent-soft);
+    display:inline-flex;align-items:center;gap:9px;
+    padding:11px 22px;border-radius:999px;align-self:flex-start;
+    transition:background .25s ease,gap .25s ease,transform .25s ease;
+  }
+  .channel .go:hover{background:var(--paper);gap:14px;transform:translateY(-2px);}
+
+  .stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:32px;
+    margin-top:64px;padding-top:52px;border-top:1px solid rgba(255,255,255,.14);
+  }
+  .stat{text-align:center;}
+  .stat b{
+    display:block;font-family:var(--serif);font-size:clamp(1.15rem,2.1vw,1.7rem);
+    font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;color:var(--accent-soft);
+    white-space:nowrap;
+  }
+  .stat span{font-size:.78rem;color:#9ea4ac;letter-spacing:.08em;}
+
+  /* ── 출판 ── */
+  .books{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;}
+  .book{
+    background:#fff;border:1px solid var(--line-soft);padding:28px 28px 32px;
+    transition:transform .35s ease,box-shadow .35s ease;
+  }
+  .book:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(21,24,29,.08);}
+  .book-cover{margin:0 0 24px;box-shadow:0 18px 32px -14px rgba(21,24,29,.35);}
+  .book-cover img{width:100%;height:auto;display:block;}
+  .book h3{font-family:var(--serif);font-size:1.18rem;font-weight:600;margin:0 0 10px;line-height:1.55;letter-spacing:-0.025em;}
+  .book p{color:var(--muted);font-size:.9rem;line-height:1.85;margin:0;}
+
+  /* ── 진행 방식 ── */
+  .flow{display:flex;align-items:stretch;gap:0;}
+  .flow-step{
+    flex:1;text-align:center;padding:44px 30px 38px;position:relative;
+    background:var(--paper-2);border:1px solid var(--line-soft);border-radius:18px;
+    transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
+  }
+  .flow-step:hover{transform:translateY(-5px);box-shadow:0 18px 36px rgba(21,24,29,.07);border-color:var(--accent-soft);}
+  .flow-badge{
+    position:absolute;top:22px;right:24px;font-family:var(--serif);font-size:.72rem;
+    letter-spacing:.14em;color:var(--line);font-weight:700;
+  }
+  .flow-icon{
+    width:64px;height:64px;margin:0 auto 24px;border-radius:50%;
+    background:var(--accent);color:var(--paper);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .flow-icon svg{width:28px;height:28px;}
+  .flow-step h4{font-size:1.4rem;font-weight:600;margin:0 0 10px;letter-spacing:-0.02em;}
+  .flow-step p{color:var(--ink-soft);font-size:1.02rem;line-height:1.7;margin:0;}
+  .flow-arrow{flex:0 0 auto;width:56px;display:flex;align-items:center;justify-content:center;color:var(--line);}
+  .flow-arrow svg{width:26px;height:26px;}
+
+  /* ── 문의 ── */
+  #contact{padding-bottom:110px;}
+  .contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:80px;align-items:start;}
+  .contact-cta h2{margin-bottom:20px;}
+  .contact-cta p{color:var(--ink-soft);margin:0 0 34px;}
+  .mailrow{
+    display:flex;flex-wrap:wrap;align-items:center;gap:16px;
+    padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:34px;
+  }
+  .mailrow .label{font-size:.75rem;letter-spacing:.2em;color:var(--muted);}
+  .mailrow a{
+    font-family:var(--serif);font-size:clamp(1.15rem,2.4vw,1.6rem);font-weight:600;
+    letter-spacing:-0.02em;border-bottom:1px solid var(--accent);padding-bottom:3px;
+    transition:color .25s ease;
+  }
+  .mailrow a:hover{color:var(--accent);}
+  .info{width:100%;border-collapse:collapse;}
+  .info th,.info td{
+    text-align:left;padding:16px 0;border-bottom:1px solid var(--line-soft);
+    font-size:.92rem;vertical-align:top;
+  }
+  .info th{width:126px;font-weight:500;color:var(--muted);font-size:.85rem;letter-spacing:.04em;}
+  .info td{color:var(--ink-soft);}
+
+  /* ── 푸터 ── */
+  footer{background:var(--ink);color:#9ea4ac;padding:64px 0 44px;font-size:.85rem;}
+  .foot-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:28px;margin-bottom:44px;}
+  .foot-brand .mark{font-family:var(--serif);font-size:1.15rem;color:var(--paper);font-weight:600;margin-bottom:10px;}
+  .foot-brand p{margin:0;max-width:none;line-height:1.9;white-space:nowrap;}
+  .foot-links{display:flex;gap:30px;flex-wrap:wrap;}
+  .foot-links a{transition:color .25s ease;}
+  .foot-links a:hover{color:var(--accent-soft);}
+  .foot-bot{
+    border-top:1px solid rgba(255,255,255,.12);padding-top:26px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:.78rem;color:#71777f;
+  }
+  .foot-credit{margin-top:14px;font-size:.72rem;color:#5c6167;}
+
+  /* ── 등장 애니메이션 ── */
+  .reveal{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1);}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* ── 반응형 ── */
+  @media (max-width:980px){
+    .hero-flex{grid-template-columns:1fr;gap:40px;}
+    .hero-visual{order:-1;max-width:320px;}
+    .hero-visual::before{display:none;}
+    .about-flex{grid-template-columns:1fr;gap:32px;}
+    .about-visual{width:160px;}
+    .contact-grid{grid-template-columns:1fr;gap:52px;}
+    .biz{grid-template-columns:1fr;}
+    .channel{grid-template-columns:1fr;gap:36px;padding:42px 34px;}
+    .channel-side{border-left:0;border-top:1px solid rgba(255,255,255,.14);padding-left:0;padding-top:32px;}
+    .books{grid-template-columns:1fr 1fr;}
+    .stats{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:720px){
+    .wrap{padding:0 22px;}
+    section{padding:88px 0;}
+    .flow{flex-direction:column;align-items:stretch;gap:16px;}
+    .flow-step{padding:36px 26px 30px;}
+    .flow-arrow{width:auto;height:16px;}
+    .flow-arrow svg{transform:rotate(90deg);}
+    .hero{padding:120px 0 80px;min-height:auto;flex-direction:column;align-items:stretch;}
+    .hero-meta{position:static;margin-top:56px;padding:0;}
+    .nav{flex-direction:column;align-items:flex-start;gap:14px;}
+    nav.menu{flex-wrap:wrap;gap:10px 20px;}
+    nav.menu a{font-size:.8rem;padding:7px 13px;}
+    .nav-cta{padding:8px 16px;}
+    .books{grid-template-columns:1fr;}
+    .stats{grid-template-columns:1fr;}
+    .foot-top{flex-direction:column;}
+    #publishing .sec-lead{white-space:normal;}
+    .foot-brand p{white-space:normal;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;}
+    .reveal{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<header id="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <span class="mark">응용<em>인문</em>연구소</span>
+    </a>
+    <nav class="menu" id="menu">
+      <a href="#about">소개</a>
+      <a href="#business">사업영역</a>
+      <a href="https://www.youtube.com/@todayhan_youtube" target="_blank" rel="noopener">유튜브</a>
+      <a href="#publishing">출판</a>
+      <a href="contact.html" class="nav-cta">강연·협업 문의</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ───────── 히어로 ───────── -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="wrap">
+      <div class="hero-flex">
+        <div class="hero-copy">
+          <span class="eyebrow reveal">(주)응용인문연구소</span>
+          <h1 class="hero-title reveal">
+            <span class="thin">AI시대,</span><br />
+            대체불가함은<br />
+            <span class="accent">인문학</span>에서 나옵니다
+          </h1>
+          <p class="hero-lead reveal">
+            기술이 빨라질수록 사람들은 더 근본적인 질문 앞에 섭니다.<br />
+            <strong class="lead-em">어떻게 판단할 것인가, 무엇을 지킬 것인가, 어떤 삶을 살 것인가.</strong><br />
+            응용인문연구소는 <strong class="lead-em">AI 시대의 기계가 대체할 수 없는 인간 고유의 능력이 무엇인지 밝히고,
+            이 능력을 함양하기 위한 지혜와 방법</strong>을 제안합니다.
+          </p>
+          <div class="hero-actions reveal">
+            <a href="contact.html" class="btn btn-primary">강연·협업 문의<span class="arrow">→</span></a>
+            <a href="#business" class="btn btn-ghost">사업영역 보기</a>
+          </div>
+        </div>
+        <div class="hero-visual reveal">
+          <div class="frame">
+            <img src="images/hero-thinker.jpeg" alt="로댕 «생각하는 사람»" width="900" height="1125" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-meta reveal">
+      <span>인문 콘텐츠 제작 · 교육 강연 · 출판 저술</span>
+      <span class="scroll-hint"><i></i>SCROLL</span>
+    </div>
+  </section>
+
+  <!-- ───────── 소개 ───────── -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about-flex">
+        <div class="about-visual reveal">
+          <div class="frame">
+            <img src="images/about-portrait.jpeg" alt="한지우 대표" width="900" height="1125" />
+          </div>
+        </div>
+        <div class="about-content reveal">
+          <span class="sec-num">01 — ABOUT</span>
+          <h2>응용인문연구소 소장 한지우</h2>
+          <p class="about-tagline">
+            AI 시대, <strong class="tag-em">기계가 대체하지 못하는 인간 고유의 능력을 탐구</strong>합니다.
+          </p>
+          <div class="about-body">
+            <p>
+              응용인문연구소는 인문학을 감상이 아니라 의사결정과 삶의 방식에 적용합니다.
+              기술이 발전할수록 인간의 인문학적 감각은 덜 중요해지는 것이 아니라 더 가치 있어진다는
+              믿음으로, 고전과 철학이 쌓아 온 인간 이해를 뇌과학과 심리학으로 검증합니다.
+            </p>
+            <p>
+              그렇게 확인한 것들을 저서 『AI는 인문학을 먹고 산다』 『더 퍼지』 『퍼지 키즈』 『슈퍼리치보다 해피리치를 꿈꿔라』에 담았고,
+              유튜브 &lt;한지우의 오늘도 인문한&gt;으로 매주 전하며, 기업과 공공기관, 교육기관의 강연 자리에서
+              직접 만나고 있습니다.
+            </p>
+          </div>
+          <div class="about-actions">
+            <a href="contact.html" class="btn btn-primary">강연·협업 문의<span class="arrow">→</span></a>
+            <span class="signature">한지우 · 응용인문연구소 소장</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 사업영역 ───────── -->
+  <section id="business">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">02 — BUSINESS</span>
+        <h2>AI시대의 대체불가한 인간의 영역을<br />다양한 미디어를 통해 전합니다</h2>
+        <p class="sec-lead">
+          연구에서 출발해 콘텐츠로 확산하고, 강연으로 깊이를 더하고, 책으로 남깁니다.<br />
+          세 사업은 서로 다른 씨앗이 아니라, 하나의 뿌리에서 뻗어 나온 가지들입니다.
+        </p>
+      </div>
+
+      <div class="biz reveal">
+        <article class="biz-card">
+          <div class="biz-photo wide">
+            <img src="images/biz-content-studio.jpeg?v=2" alt="한지우의 오늘도 인문한 채널 아트" />
+          </div>
+          <div class="biz-body">
+            <div class="biz-top">
+              <div class="biz-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5a1.5 1.5 0 0 1 1.5-1.5h10.5L21 7.5V18.5A1.5 1.5 0 0 1 19.5 20h-14A1.5 1.5 0 0 1 4 18.5z"/><path d="M16 4v3.5A1.5 1.5 0 0 0 17.5 9H21"/><path d="M10.5 12.8v3.4l3-1.7z"/></svg>
+              </div>
+              <div class="idx">01</div>
+            </div>
+            <h3>인문 콘텐츠 제작</h3>
+            <span class="en">CONTENT STUDIO</span>
+            <p>
+              인문학 기반 콘텐츠를 기획·집필·제작합니다. 저서를 중심으로 유튜브, 클래스101과
+              같은 플랫폼에서 교육을 진행하고 있습니다. 또한 기업·기관 등의 니즈에 맞는
+              교육 프로그램도 함께 만듭니다.
+            </p>
+            <ul class="tags">
+              <li>채널 기획·운영</li>
+              <li>대본 집필</li>
+              <li>브랜디드 콘텐츠</li>
+              <li>숏폼 시리즈</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="biz-card">
+          <div class="biz-photo">
+            <img src="images/biz-lecture.jpeg" alt="한지우 대표 강연 현장" />
+          </div>
+          <div class="biz-body">
+            <div class="biz-top">
+              <div class="biz-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/><path d="M6 11v1a6 6 0 0 0 12 0v-1"/><path d="M12 18v3M9 21h6"/></svg>
+              </div>
+              <div class="idx">02</div>
+            </div>
+            <h3>교육 · 강연</h3>
+            <span class="en">EDUCATION &amp; LECTURE</span>
+            <p>
+              기업, 공공기관, 학교, 학부모 대상으로 AI 시대에 그 중요성이 더욱 강조되는
+              인문학 강연과 교육 프로그램을 설계합니다. 일회성 특강부터 다회차 커리큘럼,
+              리더십·조직문화 워크숍까지 대상과 목적에 맞춰 구성합니다.
+            </p>
+            <ul class="tags">
+              <li>기업 특강</li>
+              <li>임직원 교육</li>
+              <li>공공·교육기관</li>
+              <li>학부모 강연</li>
+              <li>워크숍</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="biz-card">
+          <div class="biz-photo">
+            <img src="images/biz-publishing.jpeg?v=2" alt="한지우 저서 4권" />
+          </div>
+          <div class="biz-body">
+            <div class="biz-top">
+              <div class="biz-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5c-1.4-1-3.4-1.5-5.5-1.5S3.4 5.5 3 5.8v12.7c1-.5 2.6-1 4.5-1s3.9.6 4.5 1.3M12 6.5c1.4-1 3.4-1.5 5.5-1.5s3.1.5 3.5.8v12.7c-1-.5-2.6-1-4.5-1s-3.9.6-4.5 1.3M12 6.5v12.8"/></svg>
+              </div>
+              <div class="idx">03</div>
+            </div>
+            <h3>출판 · 저술</h3>
+            <span class="en">PUBLISHING</span>
+            <p>
+              책 작업을 중심으로 칼럼과 기고문 집필을 함께합니다. 연구한 것들을
+              휘발되는 영상 너머에 오래 남는 텍스트로 정리합니다.
+            </p>
+            <ul class="tags">
+              <li>단행본 집필</li>
+              <li>칼럼 연재</li>
+              <li>기고문 작성</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 미디어 ───────── -->
+  <section id="media">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">03 — MEDIA</span>
+        <h2>AI시대의 대체불가한<br />인간의 영역을 탐구하는 채널 '오늘도 인문한'</h2>
+        <p class="sec-lead">
+          고전과 철학을 뇌과학·심리학의 발견과 함께 읽고, 매주 한 편씩 오늘의 언어로 풀어냅니다.<br />
+          여기서 확인된 반응이 강연과 책으로 이어집니다.
+        </p>
+      </div>
+
+      <article class="channel reveal">
+        <div class="channel-main">
+          <span class="kind">YOUTUBE — 인문 · 교양</span>
+          <h3>한지우의 오늘도 인문한</h3>
+          <div class="handle">@todayhan_youtube</div>
+          <p>
+            AI가 바꾸는 세상 속에서도 흔들리지 않는 사람이 되도록, 인문학의 올바른 길과
+            지혜를 나누는 채널입니다. 철학과 역사, 문학이 단순한 교양이 아니라 AI 시대를
+            살아가는 무기가 되도록, 뇌과학·심리학의 최신 발견과 함께 풀어냅니다.
+            미래를 준비하는 기업인과 직장인, 자녀를 키우는 부모, 그리고 대체불가능한 삶을
+            꿈꾸는 모든 분들께 생각하는 힘과 방향을 전합니다.
+          </p>
+          <a class="go" href="https://www.youtube.com/@todayhan_youtube" target="_blank" rel="noopener">채널 보기 <span>→</span></a>
+        </div>
+        <div class="channel-side">
+          <h4>다루는 주제</h4>
+          <ul>
+            <li>AI시대 대체불가함을 만드는 인문학적 감각 기르기</li>
+            <li>최신 뇌과학·심리학 연구로 증명된 인간의 강점</li>
+            <li>스탠퍼드·실리콘밸리가 주목하는 인문학 트렌드</li>
+            <li>고전의 지혜를 오늘의 사례로 다시 읽기</li>
+          </ul>
+        </div>
+      </article>
+
+      <div class="stats reveal">
+        <div class="stat"><b>4</b><span>출간 저서</span></div>
+        <div class="stat"><b>주 2회</b><span>콘텐츠 발행</span></div>
+        <div class="stat"><b>롱폼 · 숏폼</b><span>제작 포맷</span></div>
+        <div class="stat"><b>기업·공공·교육</b><span>강연 대상</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 출판 ───────── -->
+  <section id="publishing">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">04 — PUBLISHING</span>
+        <h2>연구를 책으로 남깁니다</h2>
+        <p class="sec-lead">
+          대표 한지우가 집필한 저서입니다. 채널과 강연에서 다루는 관점의 원본이자,
+          연구소가 축적해 온 문제의식의 기록입니다.
+        </p>
+      </div>
+
+      <div class="books reveal">
+        <article class="book">
+          <div class="book-cover">
+            <img src="images/book-ai-humanities.jpeg" alt="AI는 인문학을 먹고 산다 표지" width="500" height="716" />
+          </div>
+          <h3>AI는 인문학을 먹고 산다</h3>
+          <p>실리콘밸리 기술자들은 왜 시를 읽고 철학 토론을 즐기는가. 인문학으로 인공지능 시대를 주도하는 법을 다룬 대표 저서입니다.</p>
+        </article>
+        <article class="book">
+          <div class="book-cover">
+            <img src="images/book-fuzzy-kids.jpeg" alt="퍼지 키즈 표지" width="500" height="700" />
+          </div>
+          <h3>퍼지 키즈</h3>
+          <p>AI가 잘하는 일이 늘어날수록, 인간에게 남는 일은 무엇인가. 기술의 시대에 인문학적 감각이 왜 더 중요해지는지를 다룹니다.</p>
+        </article>
+        <article class="book">
+          <div class="book-cover">
+            <img src="images/book-the-fuzzy.jpeg" alt="더 퍼지 표지" width="500" height="720" />
+          </div>
+          <h3>더 퍼지</h3>
+          <p>정답이 아니라 질문을 다루는 사람들에 관한 이야기. 경계가 흐려지는 시대의 인재상을 인문학의 언어로 풀어냅니다.</p>
+        </article>
+        <article class="book">
+          <div class="book-cover">
+            <img src="images/book-happyrich.jpeg" alt="슈퍼리치보다 해피리치를 꿈꿔라 표지" width="500" height="728" />
+          </div>
+          <h3>슈퍼리치보다 해피리치를 꿈꿔라</h3>
+          <p>돈은 늘었는데 왜 행복은 비례하지 않는가. 자산 형성의 과정에서 놓치기 쉬운 삶의 균형을 다룬 투자 인문 에세이입니다.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 진행 방식 ───────── -->
+  <section id="process">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-num">05 — PROCESS</span>
+        <h2>이렇게 진행됩니다</h2>
+      </div>
+      <div class="flow reveal">
+        <div class="flow-step">
+          <span class="flow-badge">STEP 01</span>
+          <div class="flow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5a1.5 1.5 0 0 1 1.5-1.5h13A1.5 1.5 0 0 1 20 6.5v11A1.5 1.5 0 0 1 18.5 19h-13A1.5 1.5 0 0 1 4 17.5z"/><path d="m4.6 6.6 7.4 6 7.4-6"/></svg>
+          </div>
+          <h4>문의</h4>
+          <p>대상·인원·일정을<br />메일로 보내 주세요</p>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </div>
+        <div class="flow-step">
+          <span class="flow-badge">STEP 02</span>
+          <div class="flow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12.5a6.5 6.5 0 0 1-9.9 5.53L5 19l1.06-3.9A6.5 6.5 0 1 1 20 12.5Z"/></svg>
+          </div>
+          <h4>협의</h4>
+          <p>목적과 주제, 깊이를<br />함께 정합니다</p>
+        </div>
+        <div class="flow-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </div>
+        <div class="flow-step">
+          <span class="flow-badge">STEP 03</span>
+          <div class="flow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m8.4 12.3 2.4 2.4 4.8-5.4"/></svg>
+          </div>
+          <h4>진행</h4>
+          <p>맞춤 강연·콘텐츠로<br />만나뵙습니다</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 문의 ───────── -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div class="contact-cta reveal">
+          <span class="sec-num">06 — CONTACT</span>
+          <h2>어떤 이야기가 필요하신가요?</h2>
+          <p>
+            강연 의뢰, 콘텐츠 제작 협업, 출판 제안, 인터뷰 요청 모두 환영합니다.<br />
+            대상과 목적을 간단히 남겨 주시면 담당자가 직접 회신드립니다.
+          </p>
+          <div class="mailrow">
+            <span class="label">E-MAIL</span>
+            <a href="mailto:liberalarts83@naver.com">liberalarts83@naver.com</a>
+          </div>
+          <div class="hero-actions">
+            <a href="contact.html" class="btn btn-primary">문의 양식 작성하기<span class="arrow">→</span></a>
+            <a href="mailto:liberalarts83@naver.com?subject=%5B%EB%AC%B8%EC%9D%98%5D%20%EC%9D%91%EC%9A%A9%EC%9D%B8%EB%AC%B8%EC%97%B0%EA%B5%AC%EC%86%8C" class="btn btn-ghost">메일로 바로 보내기</a>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <table class="info">
+            <tbody>
+              <tr><th>법인명</th><td>주식회사 응용인문연구소</td></tr>
+              <tr><th>대표자</th><td>한지우</td></tr>
+              <tr><th>사업자등록번호</th><td>590-87-02841</td></tr>
+              <tr><th>대표메일</th><td>liberalarts83@naver.com</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="mark">(주)응용인문연구소</div>
+        <p>AI시대, 대체불가함은 인문학에서 나옵니다. 콘텐츠와 강연과 책으로, 생각이 삶에 닿게 만듭니다.</p>
+      </div>
+      <div class="foot-links">
+        <a href="#about">소개</a>
+        <a href="#business">사업영역</a>
+        <a href="#publishing">출판</a>
+        <a href="contact.html">문의</a>
+        <a href="https://www.youtube.com/@todayhan_youtube" target="_blank" rel="noopener">유튜브</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>&copy; 2026 주식회사 응용인문연구소. All rights reserved.</span>
+      <span>대표자 한지우 · 사업자등록번호 590-87-02841 · liberalarts83@naver.com</span>
+    </div>
+    <div class="foot-credit">
+      히어로 이미지: 《The Thinker》 by Auguste Rodin, photo by Didier Descouens — Wikimedia Commons, CC BY-SA 4.0
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var header = document.getElementById('site-header');
+  var bar = document.getElementById('progress');
+
+  function onScroll(){
+    var y = window.scrollY || document.documentElement.scrollTop;
+    header.classList.toggle('solid', y > 40);
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // 스크롤 등장
+  var items = document.querySelectorAll('.reveal');
+  function revealAll(){
+    items.forEach(function(el){ el.classList.add('in'); });
+  }
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en, i){
+        if(en.isIntersecting){
+          var el = en.target;
+          el.classList.add('in');
+          io.unobserve(el);
+        }
+      });
+    }, {threshold:0, rootMargin:'0px 0px -5% 0px'});
+    items.forEach(function(el){ io.observe(el); });
+    // 안전장치: 옵저버가 어떤 이유로든 반응하지 않을 경우를 대비해 강제로 표시
+    setTimeout(revealAll, 2500);
+  } else {
+    revealAll();
+  }
+})();
+</script>
+
+</body>
+</html>

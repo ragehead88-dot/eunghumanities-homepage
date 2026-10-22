@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>오늘도 인문한</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+
+<style>
+  :root {
+    --bg: #eee9de;
+    --surface: #fdfbf5;
+    --surface-2: #e8e1d0;
+    --ink: #232722;
+    --ink-soft: #5c6459;
+    --ink-faint: #93998c;
+    --accent: #3f5d55;
+    --accent-ink: #f3efe2;
+    --line: rgba(35, 39, 34, 0.14);
+    --shadow: rgba(35, 39, 34, 0.10);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12140f;
+      --surface: #1c1f18;
+      --surface-2: #242820;
+      --ink: #ece8da;
+      --ink-soft: #a9ad9c;
+      --ink-faint: #6c705f;
+      --accent: #7ea395;
+      --accent-ink: #0f1a15;
+      --line: rgba(236, 232, 218, 0.14);
+      --shadow: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #12140f;
+    --surface: #1c1f18;
+    --surface-2: #242820;
+    --ink: #ece8da;
+    --ink-soft: #a9ad9c;
+    --ink-faint: #6c705f;
+    --accent: #7ea395;
+    --accent-ink: #0f1a15;
+    --line: rgba(236, 232, 218, 0.14);
+    --shadow: rgba(0, 0, 0, 0.4);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 56px 20px 72px;
+    min-height: 100vh;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  .page {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 12px;
+    margin-bottom: 40px;
+  }
+
+  .hero-motif {
+    position: absolute;
+    top: -26px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 170px;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  .hero-motif line, .hero-motif circle {
+    stroke: var(--accent);
+  }
+
+  .avatar-ring {
+    position: relative;
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    padding: 4px;
+    background: conic-gradient(from 150deg, var(--accent), transparent 65%);
+    margin-bottom: 20px;
+  }
+  .avatar-ring::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--bg);
+  }
+  .avatar {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--bg);
+    background: var(--surface-2);
+  }
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .name {
+    font-family: "Nanum Myeongjo", "Noto Serif KR", serif;
+    font-weight: 800;
+    font-size: 26px;
+    letter-spacing: 0.01em;
+    margin: 0 0 8px;
+    text-wrap: balance;
+  }
+
+  .role {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    text-decoration: none;
+    color: var(--ink);
+    box-shadow: 0 1px 2px var(--shadow);
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .link-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 8px 18px var(--shadow);
+  }
+  .link-card:active { transform: translateY(0); }
+  .link-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .link-icon {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--surface-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+  }
+  .link-icon svg { width: 20px; height: 20px; }
+
+  .link-text {
+    flex: 1;
+    min-width: 0;
+  }
+  .link-title {
+    display: block;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.3;
+  }
+  .link-sub {
+    display: block;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .link-arrow {
+    flex: none;
+    color: var(--ink-faint);
+  }
+  .link-arrow svg { width: 16px; height: 16px; display: block; }
+
+  .link-card.featured {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+  }
+  .link-card.featured .link-icon {
+    background: rgba(255, 255, 255, 0.16);
+    color: var(--accent-ink);
+  }
+  .link-card.featured .link-sub { color: rgba(243,239,226,0.72); }
+  .link-card.featured .link-arrow { color: rgba(243,239,226,0.85); }
+
+  .signoff {
+    text-align: center;
+    margin-top: 44px;
+  }
+  .signoff-quote {
+    font-family: "Nanum Myeongjo", "Noto Serif KR", serif;
+    font-style: italic;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    margin: 0 0 10px;
+  }
+  .signoff-meta {
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+</style>
+<meta name="description" content="한지우의 오늘도 인문한 — 인문학으로 대체불가한 나만의 브랜드를 만듭니다">
+</head>
+<body>
+<div class="page">
+  <div class="hero">
+    <svg class="hero-motif" viewBox="0 0 300 170" aria-hidden="true" fill="none" stroke-linecap="round">
+      <line x1="150" y1="8" x2="150" y2="34" stroke-width="1.3" opacity="0.9"/>
+      <line x1="150" y1="8" x2="110" y2="30" stroke-width="1.1" opacity="0.7"/>
+      <line x1="150" y1="8" x2="190" y2="30" stroke-width="1.1" opacity="0.7"/>
+      <line x1="150" y1="8" x2="76" y2="46" stroke-width="1" opacity="0.55"/>
+      <line x1="150" y1="8" x2="224" y2="46" stroke-width="1" opacity="0.55"/>
+      <line x1="150" y1="8" x2="46" y2="70" stroke-width="0.9" opacity="0.4"/>
+      <line x1="150" y1="8" x2="254" y2="70" stroke-width="0.9" opacity="0.4"/>
+      <circle cx="150" cy="8" r="3" fill="var(--accent)" stroke="none"/>
+    </svg>
+    <div class="avatar-ring">
+      <div class="avatar">
+        <img src="../images/todayhan_profile.jpg" alt="오늘도 인문한 프로필 사진">
+      </div>
+    </div>
+    <h1 class="name">한지우의 '오늘도 인문한'</h1>
+    <p class="role">인문학으로 대체불가한 나만의 브랜드를 만듭니다</p>
+  </div>
+
+  <nav class="links">
+    <a class="link-card featured" href="https://youtube.com/@todayhan_youtube" target="_blank" rel="noopener">
+      <span class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5"/><path d="M10.5 9.3v5.4l4.7-2.7z" fill="currentColor" stroke="none"/></svg>
+      </span>
+      <span class="link-text">
+        <span class="link-title">유튜브</span>
+        <span class="link-sub">@todayhan_youtube</span>
+      </span>
+      <span class="link-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+    </a>
+
+    <a class="link-card" href="https://ragehead88-dot.github.io/eunghumanities-homepage/" target="_blank" rel="noopener">
+      <span class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9"/><path d="M10 20v-6h4v6"/></svg>
+      </span>
+      <span class="link-text">
+        <span class="link-title">홈페이지</span>
+        <span class="link-sub">응용인문연구소 공식 홈페이지</span>
+      </span>
+      <span class="link-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+    </a>
+
+    <a class="link-card" href="mailto:liberalarts83@naver.com">
+      <span class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M4 7l8 6 8-6"/></svg>
+      </span>
+      <span class="link-text">
+        <span class="link-title">이메일</span>
+        <span class="link-sub">liberalarts83@naver.com</span>
+      </span>
+      <span class="link-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+    </a>
+
+    <a class="link-card" href="https://store.kyobobook.co.kr/person/detail/1113667202" target="_blank" rel="noopener">
+      <span class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5h9.5A2.5 2.5 0 0 1 17 7v13H7.5A2.5 2.5 0 0 1 5 17.5v-13z"/><path d="M17 7h-.5A2.5 2.5 0 0 0 14 9.5V20"/></svg>
+      </span>
+      <span class="link-text">
+        <span class="link-title">도서</span>
+        <span class="link-sub">교보문고에서 한지우 저서 만나기</span>
+      </span>
+      <span class="link-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+    </a>
+  </nav>
+
+  <div class="signoff">
+    <p class="signoff-meta">todayhan</p>
+  </div>
+</div>
+
+</body></html>
